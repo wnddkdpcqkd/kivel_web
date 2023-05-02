@@ -6,6 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --gray-20: 242, 245, 250;
+  --gray-50: 190, 198, 214;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,12 +18,21 @@
   }
 }
 
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 50px;
+  background-color: rgb(var(--gray-20));
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: rgb(var(--gray-50));
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  /* background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb)); */
 }
