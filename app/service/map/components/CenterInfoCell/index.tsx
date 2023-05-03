@@ -14,7 +14,7 @@ interface CenterInfoCellProps {
 }
 export default function CenterInfoCell({ type, badges, tags, centerName, distance, address }: CenterInfoCellProps) {
   return (
-    <div className="py-6 px-2 border-b border-gray-30">
+    <div className="py-6 px-2 border-b border-gray-30 w-[400px]">
       {/* badges */}
       <div className="flex flex-row mb-2.5 items-center">
         <Text size="s" className="text-gray-70">

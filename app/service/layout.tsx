@@ -3,7 +3,7 @@ import NavHeader from "./components/NavigationHeader";
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center justify-center">
-      <div className="lg:w-[80rem] sm:w-full">
+      <div className="w-full max-w-7xl sm:mx-auto">
         <NavHeader />
         <main>{children}</main>
       </div>

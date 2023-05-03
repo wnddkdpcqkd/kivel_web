@@ -8,7 +8,7 @@ interface LocationCellButtonProps {
 export default function LocationCellButton({ text, onClick, selected }: LocationCellButtonProps) {
   return (
     <button onClick={onClick}>
-      <div className={`w-[60px] p-1.5 ${selected ? "bg-primary-30" : "bg-white"}`}>
+      <div className={`w-[60px] p-1.5 ${selected ? "bg-primary-30" : "bg-white"} active:bg-primary-10`}>
         <Text size="s" className={`${selected ? "text-primary-90" : "text-gray-90"}`}>
           {text}
         </Text>

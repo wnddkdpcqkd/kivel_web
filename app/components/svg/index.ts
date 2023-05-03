@@ -28,3 +28,5 @@ export { default as StarFill } from "./star.fill.svg";
 export { default as StarLine } from "./star.line.svg";
 export { default as SubIcon } from "./sub.svg";
 export { default as LogoWithText } from "./logoWithText.svg";
+export { default as CheckFill } from "./check.fill.svg";
+export { default as CheckLine } from "./check.line.svg";
