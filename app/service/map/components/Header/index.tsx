@@ -72,10 +72,10 @@ export default function Header() {
         ${locationFilter.length || centerTypeFilter.length || theraphyFilter.length ? "visible" : "hidden"}`}
       >
         <button onClick={refreshFilter} className="center flex flex-row items-center">
-          <Text size="xs" className="text-gray-70 mr-1 h-auto">
+          <Text size="xs" className="text-gray-50 mr-1 h-auto">
             초기화
           </Text>
-          <RefreshFill width={20} height={20} color={colors.gray[70]} />
+          <RefreshFill width={20} height={20} color={colors.gray[50]} />
         </button>
         {locationFilter.map((item) => {
           return <SelectionMark onClick={() => {}} text={item} size={"m"} />;

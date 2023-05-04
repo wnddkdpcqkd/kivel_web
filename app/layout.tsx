@@ -32,7 +32,7 @@ const basicFont = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={basicFont.className}>{children}</body>
+      <body className={`${basicFont.className} flex h-screen`}>{children}</body>
     </html>
   );
 }

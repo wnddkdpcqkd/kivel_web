@@ -40,5 +40,5 @@ export default function Text({
     }
   }, [size]);
 
-  return <div className={`${fontFamily} ${fontSize} ${className}`}>{children}</div>;
+  return <div className={`text-gray-90 ${fontFamily} ${fontSize} ${className}`}>{children}</div>;
 }

@@ -45,8 +45,8 @@ export default function CheckBoxModal({
     <div className={`p-4 rounded-2xl border-gray-30 border bg-white ${modalVisible ? "visible" : "hidden"}`}>
       <div className="max-h-60 overflow-y-scroll">
         {items.map((item, index) => (
-          <div className="w-72">
-            <CheckBox key={`unit_${index}`} text={item} onClick={onClickItems} selected={!!states?.find((x) => x === item)} />
+          <div key={`unit_${index}`} className="w-72">
+            <CheckBox text={item} onClick={onClickItems} selected={!!states?.find((x) => x === item)} />
           </div>
         ))}
       </div>
