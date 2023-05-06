@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import Text from "./Text";
+import { twMerge } from "tailwind-merge";
 
 export default function Button({
   buttonClassName,
@@ -36,7 +37,7 @@ export default function Button({
 
   return (
     <button onClick={onClick} className={`py-2 px-5 rounded-lg ${bgColor} ${buttonClassName}`}>
-      <Text className={`${textColor} ${textClassName}`}>{label}</Text>
+      <Text className={twMerge(`${textColor} ${textClassName}`)}>{label}</Text>
     </button>
   );
 }

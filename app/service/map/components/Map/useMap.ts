@@ -4,11 +4,10 @@ import $ from "jquery";
 function useMap() {
   const mapRef = useRef<HTMLElement | null | any>(null);
   const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number } | string>("");
-  const [zoom, setZoom] = useState<number>(16);
+
   useEffect(() => {
     $("#myLocationBtn").on("click", (e) => {
       e.preventDefault();
-      window.alert("aaaa");
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           setMyLocation({
@@ -23,25 +22,19 @@ function useMap() {
         setMyLocation({ latitude: 37.4862618, longitude: 127.1222903 });
       }
     });
-  }, [myLocation]);
+  }, []);
 
   useEffect(() => {
     $("#mapZoomIn").on("click", (e) => {
       e.preventDefault();
-      const zoom = mapRef.current.getZoom();
-      window.alert(zoom);
-      mapRef.current.setZoom(zoom + 1, true);
-      setZoom(zoom + 1);
+      mapRef.current.setZoom(mapRef.current.getZoom() + 1, true);
     });
 
     $("#mapZoomOut").on("click", (e) => {
       e.preventDefault();
-      const zoom = mapRef.current.getZoom();
-      window.alert(zoom);
-      mapRef.current.setZoom(zoom - 1, true);
-      setZoom(zoom - 1);
+      mapRef.current.setZoom(mapRef.current.getZoom() - 1, true);
     });
-  }, [zoom]);
+  }, []);
   useEffect(() => {
     // geolocation 이용 현재 위치 확인, 위치 미동의 시 기본 위치로 지정
     if (navigator.geolocation) {

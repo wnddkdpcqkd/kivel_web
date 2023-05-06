@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { useMemo } from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function Text({
   size = "m",
@@ -34,11 +35,11 @@ export default function Text({
     } else if (size == "l") {
       return "text-xl h-7";
     } else if (size == "xl") {
-      return "text-[1.75rem] h-9";
+      return "text-[1.625rem] h-9";
     } else if (size == "xxl") {
       return "text-[1.75rem] h-[9.5]";
     }
   }, [size]);
 
-  return <div className={`text-gray-90 ${fontFamily} ${fontSize} ${className}`}>{children}</div>;
+  return <div className={twMerge(`text-gray-90 ${fontFamily} ${fontSize} ${className}`)}>{children}</div>;
 }
