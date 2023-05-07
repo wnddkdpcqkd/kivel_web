@@ -1,4 +1,5 @@
 import CenterInfoDetail from "./components/CenterInfoDetail";
+import CenterReview from "./components/CenterReview";
 import SubMap from "./components/SubMap";
 
 export default async function page({ params: { centerId } }: { params: { centerId: number } }) {
@@ -9,7 +10,13 @@ export default async function page({ params: { centerId } }: { params: { centerI
         <SubMap />
       </div>
       <div className="flex my-8 justify-between">
-        <CenterInfoDetail />
+        {/* 성새정보, 리뷰  */}
+        <div className="max-w-[850px]">
+          <CenterInfoDetail />
+          <div className="h-12"></div>
+          <CenterReview />
+        </div>
+        {/* 주변 치료기관 등.... */}
       </div>
     </div>
   );

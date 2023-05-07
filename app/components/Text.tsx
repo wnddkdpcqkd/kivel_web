@@ -27,19 +27,19 @@ export default function Text({
 
   const fontSize = useMemo(() => {
     if (size == "m") {
-      return "h-6";
+      return "leading-6";
     } else if (size == "xs") {
-      return "text-xs h-5";
+      return "text-xs leading-5";
     } else if (size == "s") {
-      return "text-sm h-[5.5]";
+      return "text-sm leading-[1.375rem]";
     } else if (size == "l") {
-      return "text-xl h-7";
+      return "text-xl leading-7";
     } else if (size == "xl") {
-      return "text-[1.625rem] h-9";
+      return "text-[1.625rem] leading-9";
     } else if (size == "xxl") {
-      return "text-[1.75rem] h-[9.5]";
+      return "text-[1.75rem] leading-[2.375rem]";
     }
   }, [size]);
 
-  return <div className={twMerge(`text-gray-90 ${fontFamily} ${fontSize} ${className}`)}>{children}</div>;
+  return <div className={twMerge(`text-gray-90 whitespace-pre-wrap ${fontFamily} ${fontSize} ${className}`)}>{`${children}`}</div>;
 }

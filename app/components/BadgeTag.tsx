@@ -8,14 +8,14 @@ export default function BadgeTag({
 }: {
   text: string;
   textClass?: string;
-  backgroundColor: string;
+  backgroundColor?: string;
   backgroundClassName?: string;
-  textColor: string;
+  textColor?: string;
 }) {
   return (
     <div className={`px-1.5 rounded-md items-center justify-center bg-gray-20 ${backgroundColor} ${backgroundClassName}`}>
       <Text className={`${textColor} ${textClass} text-gray-70`} size="s">
-        # {text}
+        {text}
       </Text>
     </div>
   );

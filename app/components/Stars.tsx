@@ -5,13 +5,15 @@ export default function Stars({
   score,
   color = colors.gray[90],
   size = { width: 24, height: 24 },
+  className,
 }: {
   score: number;
   color?: string;
   size?: { width: number; height: number };
+  className?: string;
 }) {
   return (
-    <div className="flex">
+    <div className={`flex gap-x-1 ${className}`}>
       {new Array(5).fill(undefined).map((_, index) => {
         if (score - index >= 1) {
           return <StarFill key={`star_${index}`} color={color} width={size.width} height={size.height} />;
