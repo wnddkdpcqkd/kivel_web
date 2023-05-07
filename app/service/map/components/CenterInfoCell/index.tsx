@@ -11,10 +11,21 @@ interface CenterInfoCellProps {
   centerName: string;
   distance: string;
   address: string;
+  containerClass?: string;
 }
-export default function CenterInfoCell({ type, badges, tags, centerName, distance, address }: CenterInfoCellProps) {
+export default function CenterInfoCell({
+  type,
+  badges,
+  tags,
+  centerName,
+  distance,
+  address,
+  containerClass,
+}: CenterInfoCellProps) {
   return (
-    <div className="py-6 px-2 border-b border-gray-30 w-[400px]">
+    <div
+      className={`py-6 border-b border-gray-30 w-[400px] px-2 ${containerClass}`}
+    >
       {/* badges */}
       <div className="flex flex-row mb-2.5 items-center">
         <Text size="s" className="text-gray-70">
@@ -41,7 +52,12 @@ export default function CenterInfoCell({ type, badges, tags, centerName, distanc
 
       <div className="flex flex-row mb-2.5 gap-1.5 items-center">
         {tags.map((item, index) => (
-          <BadgeTag key={`tag_${index}`} backgroundColor={colors.gray[10]} text={item} textColor={colors.gray[70]} />
+          <BadgeTag
+            key={`tag_${index}`}
+            backgroundColor={colors.gray[10]}
+            text={item}
+            textColor={colors.gray[70]}
+          />
         ))}
       </div>
     </div>

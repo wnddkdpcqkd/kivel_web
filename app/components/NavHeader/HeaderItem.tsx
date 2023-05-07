@@ -1,10 +1,16 @@
 "use client";
 import Text from "@components/Text";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function HeaderItem({ title, address }: { title: string; address: string }) {
+export default function HeaderItem({
+  title,
+  address,
+}: {
+  title: string;
+  address: string;
+}) {
   const pathName = usePathname();
   const [isCurrentNav, setIsCurrentNav] = useState<boolean>();
   useEffect(() => {

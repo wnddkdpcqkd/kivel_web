@@ -32,3 +32,5 @@ export { default as LogoWithText } from "./logoWithText.svg";
 export { default as CheckFill } from "./check.fill.svg";
 export { default as CheckLine } from "./check.line.svg";
 export { default as BlogIcon } from "./blog.icon.svg";
+export { default as KaKaoLogo } from "./kakao.logo.svg";
+export { default as NaverLogo } from "./naver.logo.svg";
