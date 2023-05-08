@@ -36,7 +36,7 @@ export default function Button({
   }, [style]);
 
   return (
-    <button onClick={onClick} className={`py-2 px-5 rounded-lg ${bgColor} ${buttonClassName}`}>
+    <button onClick={onClick} className={twMerge(`py-2 px-5 rounded-lg ${bgColor} ${buttonClassName}`)}>
       <Text className={twMerge(`${textColor} ${textClassName}`)}>{label}</Text>
     </button>
   );
