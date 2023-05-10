@@ -1,6 +1,7 @@
 import Script from "next/script";
 import "./globals.css";
 import localFont from "next/font/local";
+import Providers from "@components/Providers";
 // const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -32,7 +33,9 @@ const basicFont = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${basicFont.className} flex h-screen`}>{children}</body>
+      <Providers>
+        <body className={`${basicFont.className} flex h-screen`}>{children}</body>
+      </Providers>
     </html>
   );
 }

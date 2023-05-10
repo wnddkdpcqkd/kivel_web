@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@components/*": ["./app/components/*"],
-      "@svg": ["./app/components/svg"]
+      "@svg": ["./app/components/svg"],
+      "@lib/*": ["./app/lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/svg/index.ts"],
