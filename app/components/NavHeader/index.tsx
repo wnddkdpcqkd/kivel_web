@@ -11,7 +11,7 @@ interface navigationHeaderProps {
   leftItems: { title: string; address: string }[];
 }
 export default function NavigationHeader({ Logo, leftItems }: navigationHeaderProps) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <div className="flex flex-row gap-2 py-2.5 justify-between">
@@ -37,6 +37,7 @@ export default function NavigationHeader({ Logo, leftItems }: navigationHeaderPr
           </button>
         )}
       </div>
+      <div>{(session?.expires, session?.user, status)}</div>
     </div>
   );
 }

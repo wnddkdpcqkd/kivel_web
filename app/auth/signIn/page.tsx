@@ -2,8 +2,9 @@
 import Text from "@components/Text";
 import { KaKaoLogo, NaverLogo } from "@components/svg";
 import { signIn } from "next-auth/react";
+
 import { useRef } from "react";
-export default function page() {
+export default function signInPage() {
   const email = useRef("");
   const pw = useRef("");
 
@@ -12,6 +13,15 @@ export default function page() {
     const result = await signIn("credentials", {
       email: email.current,
       password: pw.current,
+      redirect: true,
+      callbackUrl: callbackUrl || "http://localhost:3000/partners",
+    });
+  };
+
+  const onClickKakao = async () => {
+    const callbackUrl = new URL(location.href).searchParams.get("callbackUrl");
+
+    const result = await signIn("kakao", {
       redirect: true,
       callbackUrl: callbackUrl || "http://localhost:3000/partners",
     });
@@ -51,7 +61,7 @@ export default function page() {
         <div className="flex flex-col items-center mt-8">
           <Text className="text-gray-50 mb-4">간편 로그인/회원가입</Text>
           <div className="flex gap-x-4">
-            <button>
+            <button onClick={onClickKakao}>
               <KaKaoLogo />
             </button>
             <button>
