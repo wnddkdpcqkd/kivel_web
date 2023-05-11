@@ -1,10 +1,11 @@
 "use client";
 import Text from "@components/Text";
 import { KaKaoLogo, NaverLogo } from "@components/svg";
+import { setCookie } from "cookies-next";
 import { signIn } from "next-auth/react";
 
 import { useRef } from "react";
-export default function signInPage() {
+export default function SignInPage() {
   const email = useRef("");
   const pw = useRef("");
 
@@ -20,7 +21,7 @@ export default function signInPage() {
 
   const onClickKakao = async () => {
     const callbackUrl = new URL(location.href).searchParams.get("callbackUrl");
-
+    setCookie("userType", "partner");
     const result = await signIn("kakao", {
       redirect: true,
       callbackUrl: callbackUrl || "http://localhost:3000/partners",
@@ -35,16 +36,23 @@ export default function signInPage() {
 
         <input
           onChange={(e) => (email.current = e.target.value)}
-          className={"flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-1 w-full"}
+          className={
+            "flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-1 w-full"
+          }
           placeholder={"아이디"}
         />
         <input
           onChange={(e) => (pw.current = e.target.value)}
-          className={"flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-10 w-full"}
+          className={
+            "flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-10 w-full"
+          }
           placeholder={"비밀번호"}
         />
 
-        <button className="py-2.5 rounded-[50px] bg-primary-90 w-full" onClick={onSubmit}>
+        <button
+          className="py-2.5 rounded-[50px] bg-primary-90 w-full"
+          onClick={onSubmit}
+        >
           <Text className="text-white">로그인</Text>
         </button>
 

@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
-import { signIn } from "next-auth/react";
+import { getCookie, getCookies, setCookie } from "cookies-next";
+import { type } from "os";
+import { cookies } from "next/headers";
 
 async function auth(req: NextApiRequest, res: NextApiResponse) {
   return await NextAuth(req, res, {
@@ -20,16 +22,19 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
         },
         async authorize(credentials, req) {
           // Add logic here to look up the user from the credentials supplied
-          const res = await fetch("http://localhost:3000/api/login/credential", {
-            method: "POST",
-            headers: {
-              "content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-            }),
-          });
+          const res = await fetch(
+            "http://localhost:3000/api/login/credential",
+            {
+              method: "POST",
+              headers: {
+                "content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: credentials?.email,
+                password: credentials?.password,
+              }),
+            }
+          );
 
           const user = await res.json();
 
@@ -48,7 +53,6 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
         clientId: process.env.KAKAO_CLIENT_ID as string,
         clientSecret: process.env.KAKAO_CLIENT_SECRET as string,
         profile(profile, tokens) {
-          console.log("profile", profile, tokens);
           return profile;
         },
       }),
@@ -63,13 +67,16 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
         // session.user = {
         //   email :
         // }
-        console.log(session, token, "session in callback");
         return session;
       },
       async signIn({ account, user, credentials, email, profile }) {
-        console.log("in signIn", account, user, credentials, email, profile);
-        let additionalAuthParams = req.cookies.userType;
-        console.log(additionalAuthParams);
+        console.log("이거아님?", cookies().get("userType")?.value);
+        // 쿠키값 포함
+        // 1. find email
+        // 2. 정보 비교 =>
+        //    2.1 platform 다르면 ? 다른 소셜 아이디가 있습니다. => login 실패
+        //    2.2 정보 있으면 ? login 성공 => 홈
+        //    3.3 정보 없으면 ? login 성공 => 회원가입
         return true;
       },
     },
