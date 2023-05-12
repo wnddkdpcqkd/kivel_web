@@ -15,8 +15,9 @@ model User {
   email String  @unique
   socialId  String?
   password String?
-  platform String?
+  provider String?
   name  String?
+  role String?
   posts Post[]
 }
 

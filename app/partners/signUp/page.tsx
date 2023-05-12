@@ -14,8 +14,8 @@ export default function page() {
       </div>
 
       {/* <Agreements /> */}
-      {/* <AccountForm /> */}
-      <SignUpComplete />
+      <AccountForm />
+      {/* <SignUpComplete /> */}
     </div>
   );
 }

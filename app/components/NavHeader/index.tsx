@@ -9,8 +9,9 @@ import Link from "next/link";
 interface navigationHeaderProps {
   Logo: ReactNode;
   leftItems: { title: string; address: string }[];
+  loginButtonUrl: string;
 }
-export default function NavigationHeader({ Logo, leftItems }: navigationHeaderProps) {
+export default function NavigationHeader({ Logo, leftItems, loginButtonUrl }: navigationHeaderProps) {
   const { data: session, status } = useSession();
 
   return (
@@ -32,9 +33,12 @@ export default function NavigationHeader({ Logo, leftItems }: navigationHeaderPr
             </button>
           </div>
         ) : (
-          <button className="py-3 px-4 mr-2" onClick={() => signIn()}>
-            <Text className="text-primary-90">로그인</Text>
-          </button>
+          <Link href={loginButtonUrl}>
+            <Text className="text-primary-90 py-3 px-4 mr-2">로그인</Text>
+          </Link>
+          // <button className="" onClick={() => signIn()}>
+
+          // </button>
         )}
       </div>
       <div>{(session?.expires, session?.user, status)}</div>

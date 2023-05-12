@@ -5,6 +5,8 @@ import KakaoProvider from "next-auth/providers/kakao";
 import { getCookie, getCookies, setCookie } from "cookies-next";
 import { type } from "os";
 import { cookies } from "next/headers";
+import axios from "axios";
+import { now } from "next-auth/client/_utils";
 
 async function auth(req: NextApiRequest, res: NextApiResponse) {
   return await NextAuth(req, res, {
@@ -22,19 +24,16 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
         },
         async authorize(credentials, req) {
           // Add logic here to look up the user from the credentials supplied
-          const res = await fetch(
-            "http://localhost:3000/api/login/credential",
-            {
-              method: "POST",
-              headers: {
-                "content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: credentials?.email,
-                password: credentials?.password,
-              }),
-            }
-          );
+          const res = await fetch("http://localhost:3000/api/login/credential", {
+            method: "POST",
+            headers: {
+              "content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
+          });
 
           const user = await res.json();
 
@@ -52,36 +51,58 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
       KakaoProvider({
         clientId: process.env.KAKAO_CLIENT_ID as string,
         clientSecret: process.env.KAKAO_CLIENT_SECRET as string,
-        profile(profile, tokens) {
-          return profile;
-        },
       }),
     ],
 
     callbacks: {
+      async jwt({ token, user }) {
+        console.log(token, "at jwt");
+        return token;
+      },
       async session({ session, user, token }) {
         // 소셜 로그인 하면 => DB에서 해당 ID 불러와서 ( ID는 email로 사용할 예정 )
         // 있으면 => 로그인
         // 없으면 => 회원가입
 
-        // session.user = {
-        //   email :
-        // }
+        session.user = {
+          email: token.email || "",
+          accessToken: "",
+          id: 1,
+          image: now().toString(),
+          name: "",
+          platform: "kakao",
+        };
+
         return session;
       },
       async signIn({ account, user, credentials, email, profile }) {
-        console.log("이거아님?", cookies().get("userType")?.value);
+        const body = {
+          id: user.id,
+          email: user.email,
+          role: cookies().get("userType")?.value,
+          provider: "kakao",
+        };
+
+        try {
+          const role = cookies().get("userType")?.value;
+          if (account?.provider === "kakao") {
+            const result = await axios.post("http://localhost:3000/api/login/social", body);
+            if (result.data?.message?.includes("다른 소셜 계정이 존재합니다.")) {
+            }
+          }
+        } catch (error) {
+          console.log("error :", error);
+        }
+
+        return true;
         // 쿠키값 포함
         // 1. find email
         // 2. 정보 비교 =>
-        //    2.1 platform 다르면 ? 다른 소셜 아이디가 있습니다. => login 실패
-        //    2.2 정보 있으면 ? login 성공 => 홈
+        //    2.1
+        //    2.2 정보 있으면 ? platform 다르면? 다른 소셜 아이디가 있습니다. => login 실패
+        //                   platform 같으면? login 성공 => 홈
         //    3.3 정보 없으면 ? login 성공 => 회원가입
-        return true;
       },
-    },
-    pages: {
-      signIn: "/auth/signIn",
     },
   });
 }

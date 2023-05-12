@@ -1,7 +1,36 @@
+"use client";
 import Text from "@components/Text";
 import { KaKaoLogo, NaverLogo } from "@components/svg";
+import { setCookie } from "cookies-next";
+import { signIn, useSession } from "next-auth/react";
 
-export default function page() {
+import { useEffect, useRef } from "react";
+export default function SignInPage() {
+  const email = useRef("");
+  const pw = useRef("");
+
+  const { data: session } = useSession();
+  useEffect(() => {
+    console.log("세션이 감지됐네? ", session);
+  }, [session]);
+  const onSubmit = async () => {
+    const callbackUrl = new URL(location.href).searchParams.get("callbackUrl");
+    const result = await signIn("credentials", {
+      email: email.current,
+      password: pw.current,
+      // redirect: true,
+      // callbackUrl: callbackUrl || "http://localhost:3000/partners",
+    });
+  };
+
+  const onClickKakao = async () => {
+    const callbackUrl = new URL(location.href).searchParams.get("callbackUrl");
+    setCookie("userType", "partner");
+    const result = await signIn("kakao", {
+      redirect: false,
+      // callbackUrl: callbackUrl || "http://localhost:3000/partners",
+    });
+  };
   return (
     <div className="flex w-full justify-center items-center">
       <div className="w-80">
@@ -10,19 +39,17 @@ export default function page() {
         </Text>
 
         <input
-          className={
-            "flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-1 w-full"
-          }
+          onChange={(e) => (email.current = e.target.value)}
+          className={"flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-1 w-full"}
           placeholder={"아이디"}
         />
         <input
-          className={
-            "flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-10 w-full"
-          }
+          onChange={(e) => (pw.current = e.target.value)}
+          className={"flex py-3 px-4 placeholder:text-gray-70 text-lg leading-7 bg-gray-10 rounded-lg mb-10 w-full"}
           placeholder={"비밀번호"}
         />
 
-        <button className="py-2.5 rounded-[50px] bg-primary-90 w-full">
+        <button className="py-2.5 rounded-[50px] bg-primary-90 w-full" onClick={onSubmit}>
           <Text className="text-white">로그인</Text>
         </button>
 
@@ -39,7 +66,7 @@ export default function page() {
         <div className="flex flex-col items-center mt-8">
           <Text className="text-gray-50 mb-4">간편 로그인/회원가입</Text>
           <div className="flex gap-x-4">
-            <button>
+            <button onClick={onClickKakao}>
               <KaKaoLogo />
             </button>
             <button>
